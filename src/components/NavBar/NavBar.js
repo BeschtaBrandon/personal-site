@@ -1,41 +1,58 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
+import { NavDropdown, Nav, Navbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./NavBar.scss";
+import { dropdownOptions, navItemLinks } from "./constants";
 
-import './NavBar.scss';
+const NavBar = () => {
+  const [currentNavItemId, setCurrentNavItemId] = useState(-1);
 
-import { Nav, Navbar, NavItem } from 'react-bootstrap';
+  const handleSelectNavItem = id => {
+    setCurrentNavItemId(id);
+  };
 
-class NavBar extends Component {
-  render () {
-    return (
-      <Navbar>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Home</Link>
-          </Navbar.Brand>
-        </Navbar.Header>
-        <Nav>
-          <NavItem eventKey={1} href="/work">
-            Work
-          </NavItem>
-          <NavItem eventKey={2} href="/contact">
-            Contact
-          </NavItem>
-        </Nav>
-        <Nav pullRight>
-          <NavItem eventKey={3} href="/stocks">
-            Stocks
-          </NavItem>
-          <NavItem eventKey={4} href="/news">
-            News
-          </NavItem>
-          <NavItem eventKey={5} href="/weather">
-            Weather
-          </NavItem>
-        </Nav>
-      </Navbar>
-    );
-  }
-}
+  return (
+    <Navbar bg="light" expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          <i className="fas fa-home" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            {navItemLinks.map(link => {
+              return (
+                <Nav.Link
+                  as={Link}
+                  active={
+                    currentNavItemId > 0 && setCurrentNavItemId === link.id
+                  }
+                  key={link.id}
+                  to={link.href}
+                  onClick={() => handleSelectNavItem(link.id)}
+                >
+                  {link.title}
+                </Nav.Link>
+              );
+            })}
+            <NavDropdown title="Toolbox" id="basic-nav-dropdown">
+              {dropdownOptions.map(dropdownItem => {
+                return (
+                  <NavDropdown.Item
+                    as={Link}
+                    key={dropdownItem.id}
+                    to={dropdownItem.href}
+                  >
+                    {dropdownItem.title}
+                  </NavDropdown.Item>
+                );
+              })}
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
 
 export default NavBar;

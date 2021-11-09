@@ -1,11 +1,24 @@
+@import "../../shared/stylesheets/variables";
+
 .navbar {
-  margin: -10px;
-
-  background: #e2daa1;
-
-  li {
+  i {
     &:hover {
-      background: #dbd6b1;
+      color: $sand-orange;
+    }
+  }
+  .nav-link {
+    font-weight: $medium-heavy;
+    &:hover {
+      background: $sand-orange;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    .float-right {
+      display: flex;
+      margin-left: 35%;
     }
   }
 }

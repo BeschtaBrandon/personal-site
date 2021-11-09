@@ -1,15 +1,30 @@
-img {
-  height: 72px;
-  width: 72px;
-}
+.news-page {
+  .media {
+    display: flex;
+  }
+  .list-group-item {
+    margin-top: 1.2rem;
+    text-align: left;
+    align-items: center;
+  }
 
-@media screen and (min-width: 1200px) {
   img {
-    height: 96px;
-    width: 96px;
+    height: 7rem;
+    width: 8.3rem;
+  }
+
+  .media-heading {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
-.fa-newspaper {
-  margin-left: 10px;
+@media screen and (max-width: 1200px) {
+  .news-page {
+    img {
+      height: 6.2rem;
+      width: 5.1rem;
+    }
+  }
 }
